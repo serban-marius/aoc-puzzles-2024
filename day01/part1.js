@@ -1,24 +1,24 @@
-const fs = require('node:fs');
-fs.readFile('input.txt', 'utf8', (err, input) => {
-    if (err) throw Error;
+const fs = require('node:fs'),
+    path = require('path'),
+    filePath = path.join(__dirname, 'input.txt'),
+    input = fs.readFileSync(filePath).toString();
 
-    let inputArray = input.split('\n');
+let inputArray = input.split('\n');
 
-    inputArray = inputArray.map(nine);
-    inputArray = inputArray.map(eight);
-    inputArray = inputArray.map(seven);
-    inputArray = inputArray.map(six);
-    inputArray = inputArray.map(five);
-    inputArray = inputArray.map(four);
-    inputArray = inputArray.map(three);
-    inputArray = inputArray.map(two);
-    inputArray = inputArray.map(one);
-    inputArray = inputArray.map(removeChar);
+inputArray = inputArray.map(nine);
+inputArray = inputArray.map(eight);
+inputArray = inputArray.map(seven);
+inputArray = inputArray.map(six);
+inputArray = inputArray.map(five);
+inputArray = inputArray.map(four);
+inputArray = inputArray.map(three);
+inputArray = inputArray.map(two);
+inputArray = inputArray.map(one);
+inputArray = inputArray.map(removeChar);
 
-    let sum = calculateSum(inputArray);
+let sum = calculateSum(inputArray);
 
-    console.log(sum);
-});
+console.log(sum);
 
 function calculateSum(array) {
     let sum = 0;
