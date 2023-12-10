@@ -1,15 +1,9 @@
-const fs = require('node:fs'),
-    part1 = require('./part1.js'),
-    path = require('path'),
-    filePath = path.join(__dirname, 'input.txt'),
-    input = fs.readFileSync(filePath).toString();
-
-let inputArray = part1.sanitizeInput(input);
+const part1 = require('./part1.js');
 
 let sumPreviousExtrapolated = 0;
 
-for (let key in inputArray) {
-    let sequences = part1.getSequences(inputArray[key]);
+for (let key in part1.inputArray) {
+    let sequences = part1.getSequences(part1.inputArray[key]);
 
     let previousValue = 0;
     for (let i = sequences.length - 2; i >= 0; i--){

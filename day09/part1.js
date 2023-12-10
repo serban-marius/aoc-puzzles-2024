@@ -52,4 +52,4 @@ function sanitizeInput(input) {
         ));
 }
 
-module.exports = { sanitizeInput, getSequences };
+module.exports = { getSequences, inputArray };
