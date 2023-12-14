@@ -1,9 +1,10 @@
 const fs = require('node:fs'),
     array = require('../common/array.js'),
     path = require('path'),
-    // filePath = path.join(__dirname, 'example1.txt'),
     filePath = path.join(__dirname, 'input.txt'),
     input = fs.readFileSync(filePath).toString();
+
+const FACTOR_EXPANSION = 1;
 
 const inputArray = array.sanitizeInput(input),
     galaxies = getGalaxies(inputArray),
@@ -15,19 +16,19 @@ const inputArray = array.sanitizeInput(input),
 let totalDistance = 0;
 
 allPairs.forEach(pair => {
-    totalDistance += distanceBetweenPairs(pair, rowsWithoutGalaxies, columnsWithoutGalaxies);
+    totalDistance += distanceBetweenPairs(FACTOR_EXPANSION, pair, rowsWithoutGalaxies, columnsWithoutGalaxies);
 })
 
-console.log(totalDistance);
+console.log("Part 1 SOLUTION --> \n" + totalDistance);
 
-function distanceBetweenPairs(pair, rowsWithoutGalaxies, columnsWithoutGalaxies) {
+function distanceBetweenPairs(FACTOR_EXPANSION, pair, rowsWithoutGalaxies, columnsWithoutGalaxies) {
     let distanceNoExpansion = Math.abs(pair[0][0] - pair[1][0]) + Math.abs(pair[0][1] - pair[1][1]);
-    distanceNoExpansion += howManyNumbersInBetween(pair[0][0], pair[1][0], rowsWithoutGalaxies)
-    distanceNoExpansion += howManyNumbersInBetween(pair[0][1], pair[1][1], columnsWithoutGalaxies)
+    distanceNoExpansion += howManyNumbersInBetween(FACTOR_EXPANSION, pair[0][0], pair[1][0], rowsWithoutGalaxies)
+    distanceNoExpansion += howManyNumbersInBetween(FACTOR_EXPANSION, pair[0][1], pair[1][1], columnsWithoutGalaxies)
     return distanceNoExpansion;
 }
 
-function howManyNumbersInBetween(x, anotherX, numbersToCompare) {
+function howManyNumbersInBetween(FACTOR_EXPANSION, x, anotherX, numbersToCompare) {
     let numbersBetween = 0;
     if (x > anotherX) {
         numbersToCompare.forEach(number => {
@@ -43,7 +44,7 @@ function howManyNumbersInBetween(x, anotherX, numbersToCompare) {
         })
     }
 
-    return numbersBetween;
+    return numbersBetween * FACTOR_EXPANSION;
 }
 
 function getPossibleCombinations(galaxies) {
@@ -95,3 +96,5 @@ function getRowsAndColumnsWithGalaxies(array) {
 
     return {uniqueRows, uniqueColumns}
 }
+
+module.exports = {allPairs, distanceBetweenPairs , rowsWithoutGalaxies, columnsWithoutGalaxies}
