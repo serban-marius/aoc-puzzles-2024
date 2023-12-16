@@ -1,3 +1,4 @@
-const part1 = require('./part1.js');
+const part1 = require('./part1.js'),
+    array = require('../common/array.js');
 
-part1.printArray(part1.inputArray);
+array.printArray(part1.inputArray);

@@ -1,9 +1,10 @@
 const fs = require('node:fs'),
+    array = require('../common/array.js'),
     path = require('path'),
     filePath = path.join(__dirname, 'input.txt'),
     input = fs.readFileSync(filePath).toString();
 
-let inputArray = sanitizeInput(input),
+let inputArray = array.sanitizeInput(input),
     {row, column} = findStart(inputArray),
     rowA = row,
     rowB = row,
@@ -90,7 +91,6 @@ function findNextB(row, column, previousColumnB, previousRowB, inputArray) {
             return {temporalColumnB, temporalRowB}
         }
     }
-    printArray(inputArray);
 }
 
 function getCharBehind(row, column, inputArray) {
@@ -167,19 +167,4 @@ function findStart(array) {
     }
 }
 
-function sanitizeInput(input) {
-    return input.split('\n').map(line => line.split(''));
-}
-
-function printArray(array) {
-    for (let row = 0; row < array.length; row++) {
-        let rowLetters = '';
-        const line = array[row];
-        for (let column = 0; column < line.length; column++) {
-            rowLetters += line[column];
-        }
-        console.log(rowLetters);
-    }
-}
-
-module.exports = {printArray, inputArray}
+module.exports = {inputArray}

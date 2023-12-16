@@ -17,7 +17,7 @@ day25/
 Inside each `dayXX` directory, you will find at least two files:
 
 - `input.txt`: The puzzle input provided by Advent of Code.
-- `part1.js`: The JS script that solves the puzzle.
+- `part1-quantumComputerNotFound.js`: The JS script that solves the puzzle.
 
 ## Usage
 
