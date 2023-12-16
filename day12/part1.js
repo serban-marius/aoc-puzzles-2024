@@ -1,8 +1,8 @@
-const fs = require('node:fs');
-const path = require('path');
-const array = require('../common/array.js');
-const filePath = path.join(__dirname, 'input.txt');
-const input = fs.readFileSync(filePath).toString();
+const fs = require('node:fs'),
+    path = require('path'),
+    array = require('../common/array.js'),
+    filePath = path.join(__dirname, 'input.txt'),
+    input = fs.readFileSync(filePath).toString();
 
 const inputArray = arrayFromInput(input);
 let total = 0;
@@ -13,6 +13,7 @@ inputArray.forEach(arrangement => {
     const validArrangements = findValidArrangements(pattern, expectedSequence);
 
     total += validArrangements.length;
+    console.log(total);
 });
 
 console.log(total);
@@ -51,3 +52,5 @@ function arrayFromInput(input) {
         return [pattern, sequence.split(',')];
     });
 }
+
+module.exports = {inputArray, findValidArrangements}
