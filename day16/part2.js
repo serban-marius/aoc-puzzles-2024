@@ -1,27 +1,69 @@
-const fs = require('node:fs'),
-    array = require('../common/array'),
-    path = require('path'),
-    filePath = path.join(__dirname, 'input.txt'),
-    input = fs.readFileSync(filePath).toString();
+const part1 = require('./part1'),
+    array = require('../common/array');
 
-let inputArray = array.sanitizeInput(input),
-    arrayCopy = inputArray.map(function (arr) {
-        return arr.slice();
-    }),
-    row = 0,
-    column = 0,
-    rowLimit = inputArray.length,
-    columnLimit = inputArray[0].length,
-    directionOfMovement = 'E',
+let differentResults = [],
+    arrayCopy = [],
+    rowLimit = part1.inputArray.length,
+    columnLimit = part1.inputArray[0].length,
     elementsEnergized = [];
 
-energize(row, column, directionOfMovement);
-countEnergized()
+
+// Start from all rows in the left.
+for (let row = 0; row < part1.inputArray.length; row++) {
+    arrayCopy = part1.inputArray.map(function (arr) {
+        return arr.slice();
+    })
+
+    energize(row, 0, 'E');
+    differentResults.push(returnCountEnergized())
+
+    elementsEnergized = [];
+    arrayCopy = []
+}
+
+// Start from all rows in the right.
+for (let row = 0; row < part1.inputArray.length; row++) {
+    arrayCopy = part1.inputArray.map(function (arr) {
+        return arr.slice();
+    })
+
+    energize(row, part1.inputArray[0].length -1, 'W');
+    differentResults.push(returnCountEnergized())
+
+    elementsEnergized = [];
+    arrayCopy = []
+}
+
+// Start from all columns up.
+for (let column = 0; column < part1.inputArray[0].length; column++) {
+    arrayCopy = part1.inputArray.map(function (arr) {
+        return arr.slice();
+    })
+
+    energize(0, column, 'S');
+    differentResults.push(returnCountEnergized())
+
+    elementsEnergized = [];
+    arrayCopy = []
+}
+
+// Start from all columns down.
+for (let column = 0; column < part1.inputArray[0].length; column++) {
+    arrayCopy = part1.inputArray.map(function (arr) {
+        return arr.slice();
+    })
+
+    energize(part1.inputArray.length - 1, column, 'S');
+    differentResults.push(returnCountEnergized())
+
+    elementsEnergized = [];
+    arrayCopy = []
+}
 
 function energize(actualRow, actualColumn, directionOfMovement) {
     console.log("Hi, I'm here cause without me this function throws an 'RangeError: Maximum call stack size exceeded'")
     if (actualRow >= 0 && actualRow < rowLimit && actualColumn >= 0 && actualColumn < columnLimit) {
-        let position = inputArray[actualRow][actualColumn]
+        let position = part1.inputArray[actualRow][actualColumn]
         switch (position) {
             case '.':
                 arrayCopy[actualRow][actualColumn] = '#'
@@ -35,8 +77,8 @@ function energize(actualRow, actualColumn, directionOfMovement) {
                         break;
                     }
                     if (directionOfMovement === 'S' || directionOfMovement === 'N') {
-                        move(actualRow, actualColumn, 'E')
-                        move(actualRow, actualColumn, 'W')
+                       move(actualRow, actualColumn, 'E')
+                       move(actualRow, actualColumn, 'W')
                         break;
                     }
                 }
@@ -78,29 +120,10 @@ function energize(actualRow, actualColumn, directionOfMovement) {
     }
 }
 
-function move(row, column, direction) {
-    if (direction === 'E') energize(row, column + 1, 'E');
-    if (direction === 'S') energize(row + 1, column, 'S');
-    if (direction === 'W') energize(row, column - 1, 'W');
-    if (direction === 'N') energize(row - 1, column, 'N');
-}
-
 function isLoop(row, column, direction) {
     if (elementsEnergized.includes(row + ',' + column + ',' + direction)) return true;
     elementsEnergized.push(row + ',' + column + ',' + direction)
     return false;
-}
-
-function countEnergized() {
-    let energized = 0;
-
-    arrayCopy.forEach(row => {
-        row.forEach(position => {
-            if (position === '#') energized++
-        })
-    })
-
-    console.log(energized);
 }
 
 function returnCountEnergized() {
@@ -115,4 +138,12 @@ function returnCountEnergized() {
     return energized;
 }
 
-module.exports = {move, inputArray, arrayCopy, returnCountEnergized}
+function move(row, column, direction) {
+    if (direction === 'E') energize(row, column + 1, 'E');
+    if (direction === 'S') energize(row + 1, column, 'S');
+    if (direction === 'W') energize(row, column - 1, 'W');
+    if (direction === 'N') energize(row - 1, column, 'N');
+}
+
+console.log(differentResults);
+console.log(Math.max(...differentResults));
