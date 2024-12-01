@@ -1,6 +1,6 @@
-# Advent of Code 2023 Solutions
+# Advent of Code 2024 Solutions
 
-This repository contains my personal solutions to the [Advent of Code 2023](https://adventofcode.com/2023) puzzles. Advent of Code is an annual set of Christmas-themed programming challenges that follow an advent calendar format.
+This repository contains my personal solutions to the [Advent of Code 2024](https://adventofcode.com/2024) puzzles. Advent of Code is an annual set of Christmas-themed programming challenges that follow an advent calendar format.
 
 ## Structure
 
