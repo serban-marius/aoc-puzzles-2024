@@ -18,5 +18,27 @@ for (let i = 0; i < array.length; i++) {
 }
 
 arrayDistances = arrayDistances.filter((report) => {
-  console.log(report);
+  for (let j = 0; j < report.length; j++) {
+    if (report[j] < -3 || report[j] > 3 || report[j] === 0){
+      return false;
+    }
+  }
+  return true;
 })
+
+arrayDistances = arrayDistances.filter((report) => {
+  let negative = false;
+  let positive = false;
+
+  for (let j = 0; j < report.length; j++) {
+    if (Math.sign(report[j]) === 1) {
+      positive = true;
+    } else {
+      negative = true;
+    }
+  }
+
+  return !(negative && positive);
+})
+
+console.log(arrayDistances.length);
